@@ -1,4 +1,6 @@
+import os
 from dotenv import load_dotenv
+from matplotlib import pyplot as plt
 import streamlit as st
 import pandas as pd
 from crawl_data import crawl_module
@@ -68,7 +70,11 @@ if df is not None and not df.empty:
 
 				for fig in figures:
 					st.pyplot(fig)
-
+				# remove the figures from memory
+				for fig in figures:
+					plt.close(fig)
+				# remove files from disk
+				os.remove(st.secrets["CRAWLED_DATA_PATH"])
 			except Exception as e:
 				st.error(f"❌ Lỗi khi tạo biểu đồ: {e}")
 		except Exception as e:
