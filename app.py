@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv
 from matplotlib import pyplot as plt
 import streamlit as st
 import pandas as pd
@@ -7,7 +6,14 @@ from crawl_data import crawl_module
 from get_sentiment import update_label
 from visualization import visualize_sentiment
 
-load_dotenv()
+# Danh sách các file cần xoá khi app khởi động lại
+files_to_delete = [
+    st.secrets["CRAWLED_DATA_PATH"],
+]
+
+for file in files_to_delete:
+    if os.path.exists(file):
+        os.remove(file)
 
 st.title("Ứng dụng phân tích cảm xúc người dùng")
 
@@ -51,11 +57,11 @@ if df is not None and not df.empty:
 		method = st.selectbox("Chọn đơn vị:", ["Số dòng", "Phần trăm"])
 		if method == "Số dòng":
 			num_rows = st.number_input("Nhập số dòng muốn phân tích:", min_value=1, max_value=len(df), value=min(10, len(df)))
-			selected_df = df.head(int(num_rows))
+			selected_df = shuffled_df.head(int(num_rows))
 		else:
 			percent = st.slider("Chọn phần trăm dữ liệu muốn phân tích:", min_value=1, max_value=100, value=20)
 			num_rows = int(len(df) * percent / 100)
-			selected_df = df.head(num_rows)
+			selected_df = shuffled_df.head(num_rows)
 
 	if st.button("🚀 Phân tích"):
 		try:
@@ -74,7 +80,7 @@ if df is not None and not df.empty:
 				for fig in figures:
 					plt.close(fig)
 				# remove files from disk
-				os.remove(st.secrets["CRAWLED_DATA_PATH"])
+				# os.remove(st.secrets["CRAWLED_DATA_PATH"])
 			except Exception as e:
 				st.error(f"❌ Lỗi khi tạo biểu đồ: {e}")
 		except Exception as e:
