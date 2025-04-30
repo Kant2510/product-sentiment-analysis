@@ -29,6 +29,7 @@ def visualize_sentiment(df):
 	ax1.set_title("Số lượng comment theo sentiment label")
 	ax1.set_xlabel("Sentiment Label")
 	ax1.set_ylabel("Số lượng")
+	ax1.figure.savefig("label_distribution.png")
 	figs.append(fg1)
 
 
@@ -44,6 +45,7 @@ def visualize_sentiment(df):
 	ax2.set_title("Phân bố số sao đánh giá")
 	ax2.set_xlabel("Số sao")
 	ax2.set_ylabel("Số lượng")
+	ax2.figure.savefig("rating_distribution.png")
 	figs.append(fg2)
 
 	# 3. Mối quan hệ giữa rating star và sentiment label
@@ -60,6 +62,7 @@ def visualize_sentiment(df):
 	ax3.set_xlabel("Số sao")
 	ax3.set_ylabel("Số lượng")
 	ax3.legend(title="Sentiment")
+	ax3.figure.savefig("rating_vs_sentiment.png")
 	figs.append(fg3)
 
 	# 4. Biểu đồ xu hướng sentiment theo thời gian
@@ -78,6 +81,7 @@ def visualize_sentiment(df):
 	ax4.set_xlabel("Thời gian (tháng)")
 	ax4.set_ylabel("Số lượng comment")
 	ax4.grid(True)
+	ax4.figure.savefig("sentiment_trend.png")
 	figs.append(fg4)
 
 	return figs

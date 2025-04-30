@@ -1,9 +1,10 @@
+import base64
 import os
 from matplotlib import pyplot as plt
 import streamlit as st
 import pandas as pd
 from crawl_data import crawl_module
-from get_sentiment import update_label
+from get_sentiment import update_label, review_chart
 from visualization import visualize_sentiment
 
 # # Danh sách các file cần xoá khi app khởi động lại
@@ -84,5 +85,18 @@ if df is not None and not df.empty:
 				# os.remove(st.secrets["CRAWLED_DATA_PATH"])
 			except Exception as e:
 				st.error(f"❌ Lỗi khi tạo biểu đồ: {e}")
+			st.write("Dựa trên các biểu đồ, có thể rút ra những nhận xét sau về sự đánh giá của người dùng đối với sản phẩm này:\n")
+			images_path = [
+				"label_distribution.png",
+				"rating_distribution.png",
+				"rating_vs_sentiment.png",
+				"sentiment_trend.png"
+			]
+			def encode_image(image_path):
+				with open(image_path, "rb") as image_file:
+					return base64.b64encode(image_file.read()).decode("utf-8")
+			images_path = [encode_image(image_path) for image_path in images_path]
+			response = review_chart(images_path)
+			st.write(response)
 		except Exception as e:
 			st.error(f"❗Không thể phân tích dữ liệu: {e}")
