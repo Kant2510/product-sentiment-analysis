@@ -6,14 +6,15 @@ from crawl_data import crawl_module
 from get_sentiment import update_label
 from visualization import visualize_sentiment
 
-# Danh sách các file cần xoá khi app khởi động lại
-files_to_delete = [
-    st.secrets["CRAWLED_DATA_PATH"],
-]
+# # Danh sách các file cần xoá khi app khởi động lại
+# files_to_delete = [
+# 	st.secrets["CRAWLED_DATA_PATH"],
+# ]
 
-for file in files_to_delete:
-    if os.path.exists(file):
-        os.remove(file)
+# for file in files_to_delete:
+# 	if os.path.exists(file):
+# 		os.remove(file)
+# 	print(f"Đã xoá file")
 
 st.title("Ứng dụng phân tích cảm xúc người dùng")
 
