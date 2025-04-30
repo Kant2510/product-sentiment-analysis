@@ -1,4 +1,3 @@
-import os
 from dotenv import load_dotenv
 import streamlit as st
 import pandas as pd
@@ -26,7 +25,7 @@ if st.button("📥 Thu thập"):
 df = None
 st.subheader("👁️ Xem dữ liệu")
 try:
-	df = pd.read_csv(os.getenv("CRAWLED_DATA_PATH"))
+	df = pd.read_csv(st.secrets["CRAWLED_DATA_PATH"])
 	if df.empty:
 		st.warning("❗Chưa có dữ liệu! Hãy thu thập dữ liệu trước.")
 	else:

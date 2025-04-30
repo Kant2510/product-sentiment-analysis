@@ -7,8 +7,8 @@ from tqdm import tqdm
 load_dotenv()
 
 client = OpenAI(
-    api_key=os.getenv("API_KEY"),
-    base_url="http://localhost:11434/v1"
+    api_key=st.secrets["API_KEY"],
+    base_url=st.secrets["HOST"],
 )
 
 def get_response(prompt):
@@ -20,7 +20,7 @@ def get_response(prompt):
         {"role": "user", "content": f"Đây là câu hỏi:\n{prompt}"}
     ]
     response = client.chat.completions.create(
-        model=os.getenv("MODEL_NAME"),
+        model=st.secrets["MODEL_NAME"],
         messages=messages
     )
     return response.choices[0].message.content
