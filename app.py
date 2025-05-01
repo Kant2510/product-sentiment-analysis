@@ -17,7 +17,7 @@ from visualization import visualize_sentiment
 # 		os.remove(file)
 # 	print(f"Đã xoá file")
 
-st.title("Ứng dụng phân tích cảm xúc người dùng")
+st.title("Ứng dụng phân tích phản hồi khách hàng trên sàn thương mại điện tử Shopee")
 
 # Nhập url crawl
 st.subheader("🔎 Thu thập dữ liệu")
