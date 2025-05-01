@@ -40,14 +40,14 @@ def update_label(df=None):
     df.loc[:, 'Label'] = None
     progress_bar = st.progress(0)
     status_text = st.empty()
+    length = len(df)
     for i in tqdm(df.index):
         df.at[i, 'Label'] = filter(get_response(df.at[i, 'comment_text']))
         # remove rows with other label
         if df.at[i, 'Label'] == 'other':
             df.drop(i, inplace=True)
-            df.reset_index(drop=True, inplace=True)
             continue
-        progress = int((i + 1) / len(df) * 100)
+        progress = int((i + 1) / length * 100)
         progress_bar.progress(progress)
         status_text.text(f"Đang xử lý dòng {i+1}/{len(df)}")
     progress_bar.progress(100)
