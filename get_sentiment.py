@@ -49,9 +49,10 @@ def update_label(df=None):
             continue
         progress = int((i + 1) / length * 100)
         progress_bar.progress(progress)
-        status_text.text(f"Đang xử lý dòng {i+1}/{len(df)}")
+        status_text.text(f"Đang xử lý dòng {i+1}/{length}...")
     progress_bar.progress(100)
     status_text.success("✅ Hoàn thành! Đã loại bỏ các dòng không liên quan.")
+    df.reset_index(drop=True, inplace=True)
     return df
 
 def review_chart(images):
