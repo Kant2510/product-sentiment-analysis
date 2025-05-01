@@ -45,13 +45,13 @@ def update_label(df=None):
         # remove rows with other label
         if df.at[i, 'Label'] == 'other':
             df.drop(i, inplace=True)
+            df.reset_index(drop=True, inplace=True)
             continue
         progress = int((i + 1) / len(df) * 100)
         progress_bar.progress(progress)
         status_text.text(f"Đang xử lý dòng {i+1}/{len(df)}")
     progress_bar.progress(100)
     status_text.success("✅ Hoàn thành! Đã loại bỏ các dòng không liên quan.")
-    df.reset_index(drop=True, inplace=True)
     return df
 
 def review_chart(images):
